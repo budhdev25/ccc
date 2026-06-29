@@ -1,5 +1,6 @@
 import { useTheme } from "../hooks/useTheme";
 import { useSession } from "../hooks/useSession";
+import { useLayout } from "../hooks/useLayout";
 import { useTavus } from "../hooks/useTavus";
 import { useViewport } from "../hooks/useViewport";
 import type { ViewId } from "../lib/types";
@@ -16,7 +17,8 @@ const VIEW_TITLE: Record<ViewId, string> = {
 
 export function Header() {
   const { C, dark, toggle } = useTheme();
-  const { view, setSessionMode, setMobileNavOpen } = useSession();
+  const { view, setSessionMode } = useSession();
+  const { setMobileNavOpen } = useLayout();
   const { sec, fmt } = useTavus();
   const { isMobile } = useViewport();
 

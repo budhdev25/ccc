@@ -1,5 +1,5 @@
 import { useTheme } from "../../hooks/useTheme";
-import { useSession } from "../../hooks/useSession";
+import { useLayout } from "../../hooks/useLayout";
 import { useConsult } from "../../hooks/useConsult";
 import { PatientStrip } from "./PatientStrip";
 import { ChatTab } from "./ChatTab";
@@ -14,7 +14,7 @@ import type { ReactNode } from "react";
 // panel-level "consult" zoom in the header.
 function SubTab({ zoomKey, children }: { zoomKey: string; children: ReactNode }) {
   const { C } = useTheme();
-  const { getZoom } = useSession();
+  const { getZoom } = useLayout();
   return (
     <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden" }}>
       <div style={{ flexShrink: 0, display: "flex", justifyContent: "flex-end", alignItems: "center", padding: "3px 10px", borderBottom: `1px solid ${C.borderSubtle}66`, background: C.bgCard }}>
@@ -30,7 +30,7 @@ function SubTab({ zoomKey, children }: { zoomKey: string; children: ReactNode })
 export function ConsultPanel() {
   const { C } = useTheme();
   const { ctrlTab, setCtrlTab, chatHidden, setChatHidden, glassLoading } = useConsult();
-  const { getZoom } = useSession();
+  const { getZoom } = useLayout();
 
   return (
     <>

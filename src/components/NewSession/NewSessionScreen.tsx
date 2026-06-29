@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useTheme } from "../../hooks/useTheme";
 import { useSession } from "../../hooks/useSession";
+import { useLayout } from "../../hooks/useLayout";
 import { useEHRSearch } from "../../hooks/useEHRSearch";
 import { ZoomControl } from "../primitives/ZoomControl";
 import { CHAT } from "../../theme";
 
 export function NewSessionScreen() {
   const { C } = useTheme();
-  const { startSession, getZoom } = useSession();
+  const { startSession } = useSession();
+  const { getZoom } = useLayout();
   const [q, setQ] = useState("");
   const [msg, setMsg] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);

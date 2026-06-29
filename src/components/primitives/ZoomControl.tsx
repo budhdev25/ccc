@@ -1,12 +1,12 @@
 import { useTheme } from "../../hooks/useTheme";
-import { useSession } from "../../hooks/useSession";
+import { useLayout } from "../../hooks/useLayout";
 import { ZOOM_MIN, ZOOM_MAX } from "../../context/sessionZoom";
 
 // Compact −/%/+ zoom control bound to a panel key in the session zoom registry.
 // Used on every screen/panel; the value persists across reloads.
 export function ZoomControl({ zoomKey, label }: { zoomKey: string; label?: string }) {
   const { C } = useTheme();
-  const { getZoom, setZoom } = useSession();
+  const { getZoom, setZoom } = useLayout();
   const z = getZoom(zoomKey);
   const pct = Math.round(z * 100);
   const out = () => setZoom(zoomKey, (v) => v - 0.1);

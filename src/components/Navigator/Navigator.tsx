@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { CSSProperties, MouseEvent as ReactMouseEvent } from "react";
 import { useTheme } from "../../hooks/useTheme";
 import { useSession } from "../../hooks/useSession";
+import { useLayout } from "../../hooks/useLayout";
 import { useViewport } from "../../hooks/useViewport";
 import { beginHorizontalResize } from "../../hooks/useResizeDrag";
 import { ZoomControl } from "../primitives/ZoomControl";
@@ -11,11 +12,13 @@ export function Navigator() {
   const { C } = useTheme();
   const {
     view, setView, sessionMode, setSessionMode,
-    sideCol, setSideCol, navWidth, setNavWidth, modsOpen, setModsOpen, recentsOpen, setRecentsOpen,
     navSearch, setNavSearch, sessions, activeSessionId,
-    openSession, renameSession, deleteSession, getZoom,
-    mobileNavOpen, setMobileNavOpen,
+    openSession, renameSession, deleteSession,
   } = useSession();
+  const {
+    sideCol, setSideCol, navWidth, setNavWidth, modsOpen, setModsOpen, recentsOpen, setRecentsOpen,
+    getZoom, mobileNavOpen, setMobileNavOpen,
+  } = useLayout();
   const { isMobile } = useViewport();
   // On mobile the sidebar is an off-canvas drawer; collapse mode is desktop-only.
   const closeNav = () => { if (isMobile) setMobileNavOpen(false); };

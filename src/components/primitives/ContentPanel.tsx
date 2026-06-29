@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { PANEL } from "../../theme";
-import { useSession } from "../../hooks/useSession";
+import { useLayout } from "../../hooks/useLayout";
 import { useViewport } from "../../hooks/useViewport";
 import { ZoomControl } from "./ZoomControl";
 
@@ -25,7 +25,7 @@ export function ContentPanel({
   fill?: "flex" | "full";
   zoomKey?: string;
 }) {
-  const { getZoom } = useSession();
+  const { getZoom } = useLayout();
   const { isMobile } = useViewport();
   const sizing: CSSProperties =
     fill === "flex" ? { flex: 1, minHeight: 0 } : { height: "100%" };

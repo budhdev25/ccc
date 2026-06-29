@@ -25,7 +25,7 @@ export default defineConfig([
       'react-refresh/only-export-components': [
         'error',
         {
-          allowExportNames: ['ThemeCtx', 'SessionCtx', 'TavusCtx', 'ConsultCtx'],
+          allowExportNames: ['ThemeCtx', 'LayoutCtx', 'SessionCtx', 'TavusCtx', 'ConsultCtx'],
         },
       ],
     },

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { MouseEvent as ReactMouseEvent } from "react";
 import { useTheme } from "../../hooks/useTheme";
-import { useSession } from "../../hooks/useSession";
+import { useLayout } from "../../hooks/useLayout";
 import { ConsultProvider } from "../../context/ConsultContext";
 import { useConsult } from "../../hooks/useConsult";
 import { ConsultPanel } from "./ConsultPanel";
@@ -16,7 +16,7 @@ const MIN_INSIGHTS = 360;
 function WorkspaceInner() {
   const { C } = useTheme();
   const { insightsVisible, glassLoading, triggerInsights } = useConsult();
-  const { consultWidth, setConsultWidth } = useSession();
+  const { consultWidth, setConsultWidth } = useLayout();
   const { isMobile } = useViewport();
   const [mobilePane, setMobilePane] = useState<"consult" | "insights">("consult");
   const containerRef = useRef<HTMLDivElement>(null);

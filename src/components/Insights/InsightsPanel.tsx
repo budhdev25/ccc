@@ -1,5 +1,5 @@
 import { useTheme } from "../../hooks/useTheme";
-import { useSession } from "../../hooks/useSession";
+import { useLayout } from "../../hooks/useLayout";
 import { useConsult } from "../../hooks/useConsult";
 import { useViewport } from "../../hooks/useViewport";
 import { DdxView } from "./DdxView";
@@ -11,7 +11,7 @@ import type { InsightTab } from "../../lib/types";
 // Tabs are prominent and at the TOP (per owner request).
 export function InsightsPanel() {
   const { C } = useTheme();
-  const { getZoom } = useSession();
+  const { getZoom } = useLayout();
   const { tab, setTab, setInsightsVisible } = useConsult();
   const { isMobile } = useViewport();
   const tabs: { id: InsightTab; l: string; ct: number }[] = [
