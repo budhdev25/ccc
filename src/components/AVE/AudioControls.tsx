@@ -1,5 +1,5 @@
-import { useTheme } from "../../context/ThemeContext";
-import { useTavus } from "../../context/TavusContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useTavus } from "../../hooks/useTavus";
 
 // Mic toggle + audio settings — the popup footer.
 // Mic iconography follows HANDOFF §4.10: the button shows the ACTION, not the

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { useTheme } from "../../context/ThemeContext";
-import { useConsult } from "../../context/ConsultContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useConsult } from "../../hooks/useConsult";
 import { useChatColumn } from "../../hooks/useChatColumn";
 import { useDictation } from "../../hooks/useDictation";
 import { useViewport } from "../../hooks/useViewport";

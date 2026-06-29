@@ -1,5 +1,5 @@
-import { useTheme } from "../../context/ThemeContext";
-import { useConsult } from "../../context/ConsultContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useConsult } from "../../hooks/useConsult";
 import { DOCS_S } from "../../lib/mockData";
 
 export function DocsTab() {

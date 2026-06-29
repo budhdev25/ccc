@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useRef, useState } from "react";
+import { createContext, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { DOCS_S } from "../lib/mockData";
 import type { CtrlTab, InsightTab } from "../lib/types";
@@ -8,7 +8,7 @@ import type { CtrlTab, InsightTab } from "../lib/types";
 // Phase 4 (TODO): triggerInsights fires on the FIRST real Glass event
 //   (conversation.toolcall → useGlassTool), replacing the 2.5s fake timer.
 
-interface ConsultCtxValue {
+export interface ConsultCtxValue {
   ctrlTab: CtrlTab;
   setCtrlTab: (t: CtrlTab) => void;
   tab: InsightTab;
@@ -25,7 +25,7 @@ interface ConsultCtxValue {
   triggerInsights: () => void;
 }
 
-const ConsultCtx = createContext<ConsultCtxValue | null>(null);
+export const ConsultCtx = createContext<ConsultCtxValue | null>(null);
 
 export function ConsultProvider({ children }: { children: ReactNode }) {
   const [ctrlTab, setCtrlTab] = useState<CtrlTab>("chat");
@@ -58,10 +58,4 @@ export function ConsultProvider({ children }: { children: ReactNode }) {
   }, [ctrlTab, tab, chatHidden, patientExpanded, docOn, insightsVisible, glassLoading]);
 
   return <ConsultCtx.Provider value={value}>{children}</ConsultCtx.Provider>;
-}
-
-export function useConsult(): ConsultCtxValue {
-  const ctx = useContext(ConsultCtx);
-  if (!ctx) throw new Error("useConsult must be used within ConsultProvider");
-  return ctx;
 }

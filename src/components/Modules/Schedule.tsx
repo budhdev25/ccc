@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "../../hooks/useTheme";
 import { Glow } from "../primitives/Glow";
 import { ContentPanel } from "../primitives/ContentPanel";
 
@@ -28,10 +28,11 @@ const PERSONAL: SchedItem[] = [
 
 const toMin = (t: string) => {
   const [hm, ap] = t.split(" ");
-  let [h, m] = hm.split(":").map(Number);
-  if (ap === "PM" && h !== 12) h += 12;
-  if (ap === "AM" && h === 12) h = 0;
-  return h * 60 + m;
+  const [hourRaw, minutes] = hm.split(":").map(Number);
+  let hour = hourRaw;
+  if (ap === "PM" && hour !== 12) hour += 12;
+  if (ap === "AM" && hour === 12) hour = 0;
+  return hour * 60 + minutes;
 };
 
 export function Schedule() {

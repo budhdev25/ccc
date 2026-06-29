@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useTheme } from "../../context/ThemeContext";
-import { useSession } from "../../context/SessionContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useSession } from "../../hooks/useSession";
 import { useViewport } from "../../hooks/useViewport";
 import { DdxView } from "../Insights/DdxView";
 import { TreatmentView } from "../Insights/TreatmentView";

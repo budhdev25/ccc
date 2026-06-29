@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import type { MouseEvent as ReactMouseEvent } from "react";
-import { useTheme } from "../../context/ThemeContext";
-import { useSession } from "../../context/SessionContext";
-import { ConsultProvider, useConsult } from "../../context/ConsultContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useSession } from "../../hooks/useSession";
+import { ConsultProvider } from "../../context/ConsultContext";
+import { useConsult } from "../../hooks/useConsult";
 import { ConsultPanel } from "./ConsultPanel";
 import { InsightsPanel } from "../Insights/InsightsPanel";
 import { ResizeHandle } from "../primitives/ResizeHandle";

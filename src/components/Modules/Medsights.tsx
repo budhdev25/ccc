@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "../../hooks/useTheme";
 import { Glow } from "../primitives/Glow";
 import { ContentPanel } from "../primitives/ContentPanel";
 import { NotifyMenu, BellToggle } from "../primitives/NotifyMenu";

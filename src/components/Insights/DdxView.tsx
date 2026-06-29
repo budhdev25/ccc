@@ -1,4 +1,4 @@
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "../../hooks/useTheme";
 import { Glow } from "../primitives/Glow";
 import { ContentPanel } from "../primitives/ContentPanel";
 import { DDX } from "../../lib/mockData";

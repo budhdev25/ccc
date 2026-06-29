@@ -1,6 +1,6 @@
-import { useTheme } from "../context/ThemeContext";
-import { useSession } from "../context/SessionContext";
-import { useTavus } from "../context/TavusContext";
+import { useTheme } from "../hooks/useTheme";
+import { useSession } from "../hooks/useSession";
+import { useTavus } from "../hooks/useTavus";
 import { useViewport } from "../hooks/useViewport";
 import type { ViewId } from "../lib/types";
 

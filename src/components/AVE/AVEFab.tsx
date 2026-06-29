@@ -1,5 +1,5 @@
-import { useTheme } from "../../context/ThemeContext";
-import { useTavus } from "../../context/TavusContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useTavus } from "../../hooks/useTavus";
 import { useViewport } from "../../hooks/useViewport";
 import { AVEPopup } from "./AVEPopup";
 

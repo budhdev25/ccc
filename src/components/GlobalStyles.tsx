@@ -1,4 +1,4 @@
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../hooks/useTheme";
 
 // Global keyframes, scrollbar, placeholder + focus styles, and the Outfit font.
 // Ported from the preview's <style> block + <link>.

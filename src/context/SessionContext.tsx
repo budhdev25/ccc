@@ -1,16 +1,11 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { PTS } from "../lib/mockData";
 import { loadPref, savePref } from "../lib/persist";
 import type { PatientCtx, Session, SessionMode, ViewId } from "../lib/types";
+import { clampZoom } from "./sessionZoom";
 
-// Wider range (was 0.8–1.4) so content can scale up to 200% on large screens
-// and shrink for smaller devices that need to fit more on screen.
-export const ZOOM_MIN = 0.6;
-export const ZOOM_MAX = 2.0;
-const clampZoom = (z: number) => Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, +z.toFixed(2)));
-
-interface SessionCtxValue {
+export interface SessionCtxValue {
   // navigation
   view: ViewId;
   setView: (v: ViewId) => void;
@@ -46,7 +41,7 @@ interface SessionCtxValue {
   deleteSession: (id: number) => void;
 }
 
-const SessionCtx = createContext<SessionCtxValue | null>(null);
+export const SessionCtx = createContext<SessionCtxValue | null>(null);
 
 export function SessionProvider({ children }: { children: ReactNode }) {
   const [view, setView] = useState<ViewId>("clinical");
@@ -118,10 +113,4 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   }, [view, sessionMode, sideCol, navWidth, consultWidth, zooms, mobileNavOpen, modsOpen, recentsOpen, navSearch, sessions, activeSessionId, loadedCtx]);
 
   return <SessionCtx.Provider value={value}>{children}</SessionCtx.Provider>;
-}
-
-export function useSession(): SessionCtxValue {
-  const ctx = useContext(SessionCtx);
-  if (!ctx) throw new Error("useSession must be used within SessionProvider");
-  return ctx;
 }

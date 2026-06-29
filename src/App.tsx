@@ -1,5 +1,5 @@
-import { useTheme } from "./context/ThemeContext";
-import { useSession } from "./context/SessionContext";
+import { useTheme } from "./hooks/useTheme";
+import { useSession } from "./hooks/useSession";
 import { GlobalStyles } from "./components/GlobalStyles";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { MouseEvent as ReactMouseEvent } from "react";
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "../../hooks/useTheme";
 
 // Thin draggable divider that sits between two panels in a flex row. Highlights
 // on hover and while dragging; shows a grip in the center.

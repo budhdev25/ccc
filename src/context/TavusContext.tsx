@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import type { AveMode, AveSize } from "../lib/types";
 
@@ -7,7 +7,7 @@ import type { AveMode, AveSize } from "../lib/types";
 //   events (conversation.replica.started_speaking, useLocalMicrophone, etc.) behind
 //   VITE_USE_MOCK_TAVUS. Delete the two setInterval timers below at that point.
 
-interface TavusCtxValue {
+export interface TavusCtxValue {
   speaking: boolean;
   mode: AveMode;
   setMode: (m: AveMode) => void;
@@ -32,7 +32,7 @@ interface TavusCtxValue {
   fmt: (s: number) => string;
 }
 
-const TavusCtx = createContext<TavusCtxValue | null>(null);
+export const TavusCtx = createContext<TavusCtxValue | null>(null);
 
 export function TavusProvider({ children }: { children: ReactNode }) {
   const [speaking, setSpeaking] = useState(true);
@@ -68,10 +68,4 @@ export function TavusProvider({ children }: { children: ReactNode }) {
   );
 
   return <TavusCtx.Provider value={value}>{children}</TavusCtx.Provider>;
-}
-
-export function useTavus(): TavusCtxValue {
-  const ctx = useContext(TavusCtx);
-  if (!ctx) throw new Error("useTavus must be used within TavusProvider");
-  return ctx;
 }

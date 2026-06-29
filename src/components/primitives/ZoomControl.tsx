@@ -1,5 +1,6 @@
-import { useTheme } from "../../context/ThemeContext";
-import { useSession, ZOOM_MIN, ZOOM_MAX } from "../../context/SessionContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useSession } from "../../hooks/useSession";
+import { ZOOM_MIN, ZOOM_MAX } from "../../context/sessionZoom";
 
 // Compact −/%/+ zoom control bound to a panel key in the session zoom registry.
 // Used on every screen/panel; the value persists across reloads.

@@ -1,6 +1,6 @@
-import { useTheme } from "../../context/ThemeContext";
-import { useSession } from "../../context/SessionContext";
-import { useConsult } from "../../context/ConsultContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useSession } from "../../hooks/useSession";
+import { useConsult } from "../../hooks/useConsult";
 import { useViewport } from "../../hooks/useViewport";
 import { DdxView } from "./DdxView";
 import { TreatmentView } from "./TreatmentView";

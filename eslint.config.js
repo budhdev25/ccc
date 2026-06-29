@@ -19,4 +19,15 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    files: ['src/context/*Context.tsx'],
+    rules: {
+      'react-refresh/only-export-components': [
+        'error',
+        {
+          allowExportNames: ['ThemeCtx', 'SessionCtx', 'TavusCtx', 'ConsultCtx'],
+        },
+      ],
+    },
+  },
 ])

@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
-import { useTheme } from "../../context/ThemeContext";
-import { useTavus } from "../../context/TavusContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useTavus } from "../../hooks/useTavus";
 import { useViewport } from "../../hooks/useViewport";
 import { AudioControls } from "./AudioControls";
 import { AveAvatar } from "./AveAvatar";
@@ -59,6 +59,28 @@ function ModeToggle({ C, mode, setMode }: { C: Theme; mode: AveMode; setMode: (m
   );
 }
 
+function SizeControls({
+  aveSize,
+  iconBtn,
+  onGo,
+  onClose,
+}: {
+  aveSize: AveSize;
+  iconBtn: CSSProperties;
+  onGo: (s: AveSize) => void;
+  onClose: () => void;
+}) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+      {aveSize !== "popup" && <button onClick={() => onGo("popup")} title="Restore" style={iconBtn} aria-label="Restore AVE">⤡</button>}
+      {aveSize === "popup" && <button onClick={() => onGo("modal")} title="Maximize" style={iconBtn} aria-label="Maximize AVE">⤢</button>}
+      {aveSize !== "fullscreen" && <button onClick={() => onGo("fullscreen")} title="Full screen (presentation)" style={iconBtn} aria-label="AVE full screen">⛶</button>}
+      {aveSize === "fullscreen" && <button onClick={() => onGo("modal")} title="Exit full screen" style={iconBtn} aria-label="Exit full screen">⛶</button>}
+      <button onClick={onClose} title="Close AVE" style={{ ...iconBtn, fontSize: 16 }} aria-label="Close AVE">×</button>
+    </div>
+  );
+}
+
 export function AVEPopup() {
   const { C } = useTheme();
   const { speaking, mode, setMode, setAveOpen, aveSize, setAveSize, convoStarted, setConvoStarted } = useTavus();
@@ -69,16 +91,8 @@ export function AVEPopup() {
   const close = () => { setAveOpen(false); setAveSize("popup"); setConvoStarted(false); };
   const startConvo = () => setConvoStarted(true);
   const go = (s: AveSize) => setAveSize(s);
-
-  // Size controls vary by current size.
-  const SizeControls = () => (
-    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-      {aveSize !== "popup" && <button onClick={() => go("popup")} title="Restore" style={iconBtn} aria-label="Restore AVE">⤡</button>}
-      {aveSize === "popup" && <button onClick={() => go("modal")} title="Maximize" style={iconBtn} aria-label="Maximize AVE">⤢</button>}
-      {aveSize !== "fullscreen" && <button onClick={() => go("fullscreen")} title="Full screen (presentation)" style={iconBtn} aria-label="AVE full screen">⛶</button>}
-      {aveSize === "fullscreen" && <button onClick={() => go("modal")} title="Exit full screen" style={iconBtn} aria-label="Exit full screen">⛶</button>}
-      <button onClick={close} title="Close AVE" style={{ ...iconBtn, fontSize: 16 }} aria-label="Close AVE">×</button>
-    </div>
+  const sizeControls = (
+    <SizeControls aveSize={aveSize} iconBtn={iconBtn} onGo={go} onClose={close} />
   );
 
   // ---- FULLSCREEN (presentation mode + patient/chat context + DDx/Treatment) ----
@@ -88,7 +102,7 @@ export function AVEPopup() {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 18px", borderBottom: `1px solid ${C.border}`, background: C.bgCard, flexShrink: 0 }}>
           <StatusPill C={C} speaking={speaking} started={convoStarted} />
           <span style={{ fontSize: 11, color: C.textMuted, fontWeight: 600 }}>Presentation mode</span>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}><ModeToggle C={C} mode={mode} setMode={setMode} /><SizeControls /></div>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}><ModeToggle C={C} mode={mode} setMode={setMode} />{sizeControls}</div>
         </div>
         <div style={{ flex: 1, display: "flex", flexDirection: isMobile ? "column" : "row", minHeight: 0 }}>
           {/* Avatar / presentation stage */}
@@ -111,7 +125,7 @@ export function AVEPopup() {
         <div onClick={(e) => e.stopPropagation()} style={{ width: 560, maxWidth: "100%", background: C.bgCard, border: `1.5px solid ${C.borderAcc}`, borderRadius: 18, boxShadow: `0 24px 64px rgba(0,0,0,0.5), 0 0 24px ${C.accentGlow}`, overflow: "hidden", fontFamily: "'Outfit',sans-serif" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", borderBottom: `1px solid ${C.border}` }}>
             <StatusPill C={C} speaking={speaking} started={convoStarted} />
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}><ModeToggle C={C} mode={mode} setMode={setMode} /><SizeControls /></div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}><ModeToggle C={C} mode={mode} setMode={setMode} />{sizeControls}</div>
           </div>
           <div style={{ padding: "40px 16px", display: "flex", alignItems: "center", justifyContent: "center", minHeight: 280, background: `radial-gradient(ellipse at 50% 40%, ${C.bgEl} 0%, ${C.bgCard} 80%)` }}>
             <Stage C={C} mode={mode} speaking={speaking} avatar={240} waveMax={120} started={convoStarted} onStart={startConvo} />
@@ -127,7 +141,7 @@ export function AVEPopup() {
     <div style={{ position: "fixed", bottom: 92, right: 16, width: "min(290px, calc(100vw - 32px))", background: C.bgCard, border: `1.5px solid ${C.borderAcc}`, borderRadius: 14, boxShadow: `0 8px 32px rgba(0,0,0,0.45), 0 0 16px ${C.accentGlow}`, zIndex: 10000, overflow: "hidden", fontFamily: "'Outfit',sans-serif" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px", borderBottom: `1px solid ${C.border}`, gap: 8 }}>
         <StatusPill C={C} speaking={speaking} started={convoStarted} />
-        <SizeControls />
+        {sizeControls}
       </div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 12px", borderBottom: `1px solid ${C.border}` }}>
         <ModeToggle C={C} mode={mode} setMode={setMode} />

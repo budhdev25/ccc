@@ -1,6 +1,6 @@
-import { useTheme } from "../../context/ThemeContext";
-import { useSession } from "../../context/SessionContext";
-import { useConsult } from "../../context/ConsultContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useSession } from "../../hooks/useSession";
+import { useConsult } from "../../hooks/useConsult";
 
 // Only renders when a patient context is loaded (BUILD_PLAN non-negotiable:
 // the strip appears under the Consult label only if loadedCtx !== null).

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useTheme } from "../../context/ThemeContext";
-import { useSession } from "../../context/SessionContext";
+import { useTheme } from "../../hooks/useTheme";
+import { useSession } from "../../hooks/useSession";
 import { useEHRSearch } from "../../hooks/useEHRSearch";
 import { ZoomControl } from "../primitives/ZoomControl";
 import { CHAT } from "../../theme";

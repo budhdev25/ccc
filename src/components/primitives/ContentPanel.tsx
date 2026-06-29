@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { PANEL } from "../../theme";
-import { useSession } from "../../context/SessionContext";
+import { useSession } from "../../hooks/useSession";
 import { useViewport } from "../../hooks/useViewport";
 import { ZoomControl } from "./ZoomControl";
 
