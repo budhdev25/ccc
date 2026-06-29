@@ -1,6 +1,6 @@
 import { createContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { PTS } from "../lib/mockData";
+import { patientService } from "../services";
 import { loadPref, savePref } from "../lib/persist";
 import type { PatientCtx, Session, SessionMode, ViewId } from "../lib/types";
 import { clampZoom } from "./sessionZoom";
@@ -79,9 +79,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       setActiveSessionId(s.id);
       setView("clinical");
       setSessionMode("active");
-      if (s.ptIdx >= 0 && PTS[s.ptIdx]) {
-        const p = PTS[s.ptIdx];
-        setLoadedCtx({ ...p.ctx, name: p.name ?? "", mrn: "" });
+      if (s.ptIdx >= 0) {
+        const p = patientService.getPatientByIndex(s.ptIdx);
+        if (p) {
+          setLoadedCtx({ ...p.ctx, name: p.name ?? "", mrn: "" });
+        } else {
+          setLoadedCtx(null);
+        }
       } else {
         setLoadedCtx(null);
       }

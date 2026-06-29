@@ -1,5 +1,6 @@
 // Mock data — ported verbatim from CCC_Preview.jsx.
 // Powers Phases 1–5 PHI-free by construction; stays as fallback fixtures.
+// UI code must consume data via src/services/* — do not import this file from components.
 // TODO (Phase 2/3): DDX/TX/MSGS replaced by real Tavus utterances + Glass responses.
 // TODO (Phase 4): EHR_PTS replaced by SMART on FHIR (when an EHR partner exists).
 

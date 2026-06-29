@@ -1,10 +1,11 @@
 import { useTheme } from "../../hooks/useTheme";
 import { useConsult } from "../../hooks/useConsult";
-import { DOCS_S } from "../../lib/mockData";
+import { consultService } from "../../services";
 
 export function DocsTab() {
   const { C } = useTheme();
   const { docOn, toggleDoc } = useConsult();
+  const documents = consultService.getDocuments();
   return (
     <div style={{ flex: 1, overflowY: "auto", padding: "10px 12px" }}>
       <div style={{ maxWidth: 220, margin: "0 auto" }}>
@@ -13,10 +14,10 @@ export function DocsTab() {
           <span style={{ fontSize: 10, color: C.textDim }}>Upload document</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6, paddingBottom: 4, borderBottom: `1px solid ${C.border}` }}>
-          <span style={{ fontSize: 10, fontWeight: 700, color: C.textDim, textTransform: "uppercase", letterSpacing: "0.07em" }}>Uploaded ({DOCS_S.length})</span>
+          <span style={{ fontSize: 10, fontWeight: 700, color: C.textDim, textTransform: "uppercase", letterSpacing: "0.07em" }}>Uploaded ({documents.length})</span>
           <span style={{ fontSize: 8, fontWeight: 600, color: C.textMuted }}>Send to Glass</span>
         </div>
-        {DOCS_S.map((d, i) => (
+        {documents.map((d, i) => (
           <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 8px", marginBottom: 4, borderRadius: 5, background: C.bgEl, border: `1px solid ${docOn[i] ? C.borderAcc + "40" : C.border}` }}>
             <span style={{ fontSize: 10, opacity: 0.5, flexShrink: 0 }}>📄</span>
             <div style={{ flex: 1, minWidth: 0 }}>

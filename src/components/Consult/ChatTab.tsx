@@ -5,7 +5,7 @@ import { useChatColumn } from "../../hooks/useChatColumn";
 import { useDictation } from "../../hooks/useDictation";
 import { useViewport } from "../../hooks/useViewport";
 import { CHAT } from "../../theme";
-import { MSGS } from "../../lib/mockData";
+import { consultService } from "../../services";
 import { EchoImg } from "../primitives/EchoImg";
 import { ChartImg } from "../primitives/ChartImg";
 
@@ -24,6 +24,7 @@ export function ChatTab() {
   const { listening, supported, toggle } = useDictation((t) =>
     setDraft((d) => (d ? d + " " : "") + t)
   );
+  const messages = consultService.getMessages();
   const scrollToBottom = () => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   };
@@ -40,7 +41,7 @@ export function ChatTab() {
         <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
           <div ref={scrollRef} style={{ height: "100%", overflowY: "auto", padding: `16px ${gutterX}px` }}>
             <div style={{ maxWidth: colWidth, margin: "0 auto" }}>
-              {MSGS.map((m, i) => {
+              {messages.map((m, i) => {
                 const isDr = m.w === "dr";
                 return (
                   <div key={i} style={{ display: "flex", gap: CHAT.avatarGap, marginBottom: msgGapY, flexDirection: isDr ? "row-reverse" : "row" }}>

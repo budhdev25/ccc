@@ -5,7 +5,7 @@ import { useSession } from "../../hooks/useSession";
 import { useViewport } from "../../hooks/useViewport";
 import { beginHorizontalResize } from "../../hooks/useResizeDrag";
 import { ZoomControl } from "../primitives/ZoomControl";
-import { NAV } from "../../lib/mockData";
+import { navigationService } from "../../services";
 
 export function Navigator() {
   const { C } = useTheme();
@@ -26,6 +26,7 @@ export function Navigator() {
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [tooltipY, setTooltipY] = useState(0);
   const [navResizeActive, setNavResizeActive] = useState(false);
+  const navItems = navigationService.getNavItems();
 
   const shellStyle: CSSProperties = isMobile
     ? { position: "fixed", top: 0, left: 0, bottom: 0, width: "min(286px, 84vw)", transform: mobileNavOpen ? "translateX(0)" : "translateX(-100%)", transition: "transform 0.25s ease", zIndex: 1001, overflow: "hidden", boxShadow: mobileNavOpen ? "0 0 50px rgba(0,0,0,0.55)" : "none" }
@@ -94,7 +95,7 @@ export function Navigator() {
                 </button>
                 {modsOpen && (
                   <div style={{ padding: "0 8px 8px" }}>
-                    {NAV.map((n) => {
+                    {navItems.map((n) => {
                       const a = view === n.id && sessionMode === "active";
                       return (
                         <button key={n.id} onClick={() => { setView(n.id); setSessionMode("active"); closeNav(); }} style={{ width: "100%", display: "flex", alignItems: "center", gap: 9, padding: "7px 10px", borderRadius: 6, border: `1px solid ${a ? C.borderAcc + "50" : "transparent"}`, background: a ? C.accentDim : "transparent", color: a ? C.accent : C.textMuted, fontSize: 11, fontWeight: a ? 600 : 500, cursor: "pointer", fontFamily: "'Outfit',sans-serif", textAlign: "left", marginBottom: 1, boxShadow: a ? C.insetHi : "none", transition: "all 0.15s" }} onMouseEnter={(e) => { if (!a) { e.currentTarget.style.background = C.navHover; e.currentTarget.style.color = C.text; } }} onMouseLeave={(e) => { if (!a) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = C.textMuted; } }}>
@@ -168,7 +169,7 @@ export function Navigator() {
       {/* Collapsed rail */}
       {sideCol && (
         <div style={{ flex: 1, overflowY: "auto", padding: "6px 4px" }}>
-          {NAV.map((n) => (
+          {navItems.map((n) => (
             <div key={n.id} style={{ position: "relative" }}>
               <button onClick={() => { setView(n.id); setSessionMode("active"); }} onMouseEnter={(e) => { setHoveredNav(n.id); const r = e.currentTarget.getBoundingClientRect(); setTooltipY(r.top + r.height / 2); }} onMouseLeave={() => setHoveredNav(null)} style={{ width: "100%", padding: "8px 0", borderRadius: 5, border: `2px solid ${view === n.id ? C.borderAcc : "transparent"}`, background: view === n.id ? C.accentDim : "transparent", cursor: "pointer", fontFamily: "'Outfit',sans-serif", fontSize: 14, textAlign: "center", marginBottom: 1, boxShadow: view === n.id ? `0 0 8px ${C.accentGlow}` : "none", transition: "all 0.15s" }}>{n.icon}</button>
             </div>
@@ -178,7 +179,7 @@ export function Navigator() {
 
       {sideCol && hoveredNav && (
         <div style={{ position: "fixed", left: 60, top: tooltipY, transform: "translateY(-50%)", background: C.bgCard, border: `1px solid ${C.borderAcc}`, borderRadius: 6, padding: "5px 11px", fontSize: 11, fontWeight: 600, color: C.text, whiteSpace: "nowrap", zIndex: 9999, boxShadow: "0 4px 14px rgba(0,0,0,0.35)", pointerEvents: "none" }}>
-          {NAV.find((n) => n.id === hoveredNav)?.label}
+          {navItems.find((n) => n.id === hoveredNav)?.label}
         </div>
       )}
 

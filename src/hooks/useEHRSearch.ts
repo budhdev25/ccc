@@ -1,16 +1,9 @@
 import { useMemo } from "react";
-import { EHR_PTS } from "../lib/mockData";
+import { patientService } from "../services";
 import type { EhrPatient } from "../lib/types";
 
-// Phase 1: synchronous filter over the 6 synthetic EHR patients.
-// Phase 4 (TODO): swap the body for a debounced SMART-on-FHIR query that returns
-//   the same EhrPatient[] shape, behind a real EHR partner.
+// Phase 1: synchronous filter over mock EHR patients via patientService.
+// Phase 4 (TODO): debounced SMART-on-FHIR query returning the same EhrPatient[] shape.
 export function useEHRSearch(query: string): EhrPatient[] {
-  return useMemo(() => {
-    if (query.length <= 1) return [];
-    const q = query.toLowerCase();
-    return EHR_PTS.filter(
-      (x) => x.name.toLowerCase().includes(q) || x.mrn.includes(query)
-    );
-  }, [query]);
+  return useMemo(() => patientService.searchEhrPatients(query), [query]);
 }

@@ -1,6 +1,6 @@
 import { createContext, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { DOCS_S } from "../lib/mockData";
+import { consultService } from "../services";
 import type { CtrlTab, InsightTab } from "../lib/types";
 
 // Workspace-scoped state shared by ConsultPanel + InsightsPanel (siblings).
@@ -32,7 +32,9 @@ export function ConsultProvider({ children }: { children: ReactNode }) {
   const [tab, setTab] = useState<InsightTab>("ddx");
   const [chatHidden, setChatHidden] = useState(false);
   const [patientExpanded, setPatientExpanded] = useState(false);
-  const [docOn, setDocOn] = useState<boolean[]>(DOCS_S.map((d) => d.on));
+  const [docOn, setDocOn] = useState<boolean[]>(() =>
+    consultService.getDocuments().map((d) => d.on)
+  );
   // Default view: Insights expanded (owner override of BUILD_PLAN non-negotiable #5;
   // Glass slide-in still works if the user Hides it and re-triggers).
   const [insightsVisible, setInsightsVisible] = useState(true);

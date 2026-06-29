@@ -1,7 +1,7 @@
 import { useTheme } from "../../hooks/useTheme";
 import { Glow } from "../primitives/Glow";
 import { ContentPanel } from "../primitives/ContentPanel";
-import { DDX } from "../../lib/mockData";
+import { insightsService } from "../../services";
 import type { DxItem } from "../../lib/types";
 
 // TODO (Phase 3): replace DDX mock with streamed Glass markdown + a real
@@ -9,10 +9,11 @@ import type { DxItem } from "../../lib/types";
 // have no reference data behind them.
 export function DdxView() {
   const { C } = useTheme();
+  const ddx = insightsService.getDifferentialDiagnosis();
   const cats: { l: string; c: string; items: DxItem[] }[] = [
-    { l: "Most Likely", c: C.success, items: DDX.ml },
-    { l: "Expanded", c: C.warning, items: DDX.ex },
-    { l: "Can't Miss", c: C.danger, items: DDX.cm },
+    { l: "Most Likely", c: C.success, items: ddx.ml },
+    { l: "Expanded", c: C.warning, items: ddx.ex },
+    { l: "Can't Miss", c: C.danger, items: ddx.cm },
   ];
   return (
     <ContentPanel fill="full" maxWidth={520}>

@@ -6,7 +6,7 @@ import { DdxView } from "../Insights/DdxView";
 import { TreatmentView } from "../Insights/TreatmentView";
 import { EchoImg } from "../primitives/EchoImg";
 import { ChartImg } from "../primitives/ChartImg";
-import { MSGS } from "../../lib/mockData";
+import { consultService } from "../../services";
 
 type FsTab = "chat" | "ddx" | "tx";
 
@@ -17,6 +17,7 @@ export function FullscreenContext() {
   const { loadedCtx } = useSession();
   const { isMobile } = useViewport();
   const [tab, setTab] = useState<FsTab>("ddx");
+  const messages = consultService.getMessages();
 
   const tabs: { id: FsTab; l: string; ct?: number }[] = [
     { id: "chat", l: "Chat" },
@@ -87,7 +88,7 @@ export function FullscreenContext() {
         {tab === "tx" && <TreatmentView />}
         {tab === "chat" && (
           <div style={{ height: "100%", overflowY: "auto", padding: "16px 18px" }}>
-            {MSGS.map((m, i) => {
+            {messages.map((m, i) => {
               const isDr = m.w === "dr";
               return (
                 <div key={i} style={{ display: "flex", gap: 10, marginBottom: 18, flexDirection: isDr ? "row-reverse" : "row" }}>
